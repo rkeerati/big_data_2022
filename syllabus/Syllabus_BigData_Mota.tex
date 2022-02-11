@@ -1,0 +1,174 @@
+\documentclass[12pts]{article}
+\usepackage[]{graphicx}
+\usepackage[]{color}
+\usepackage{alltt}
+\usepackage{hyperref}
+%\usepackage{inconsolata}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{color,graphicx}
+\usepackage{amsmath,amsfonts}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{eurosym}
+\usepackage{booktabs}
+\usepackage[square, compress, longnamesfirst]{natbib}
+
+% **** BE SURE TO ELIMINATE DRAFT COMMENTS AND DRAFTNOTES BEFORE CIRCULATING!!!! ***
+%
+%\newcommand{\draft}[1]{\noindent {\bf [***DRAFT---{\em #1}---DRAFT***]}}
+\newcommand{\draft}[1]{{}}
+
+% Usuful commands
+\newcommand{\Lagr}{\mathcal{L}}
+
+% Put a vertical space between paragraphs instead of indentation
+\parskip=12pt \parindent=0.0in
+
+% Setup
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Big Data}
+\chead{Columbia Business School}
+\lhead{Keerati, Ritt}
+
+
+\title{\textbf{Big Data in Finance - Part III} \\ \vspace{0.5cm} CRSP and Compustat: \\
+	an Application to Quant Finance}
+\author{Ritt Keerati\thanks{I am greatly indebted to Lira Mota for sharing her teaching materials for this course with me. If you find typos, or have any comments or suggestions, then please let me know via ritt.keerati@gsb.columbia.edu.}}
+\begin{document}
+
+\maketitle
+
+During this part of the course, you will gain familiarity with two of the most widely used datasets in finance: CRSP and Compustat. The course will be based on hands-on applications in quantitative investing and is designed to give you exposure to up-to-date empirical work in asset pricing and its applications in quantitative finance.
+
+\section*{Class Material}
+All class material is available in a GIT repository in Bitbucket. You can clone or download \href{https://bitbucket.org/rkeerati/big-data-2022/src}{here}.
+
+\section*{Schedule}
+
+\begin{itemize}
+	\item Lecture 5: Introduction, CRSP and Compustat basics
+	\item Lecture 6: Application to asset pricing: Factor replication
+	\item Lecture 7: Quantitative investing
+\end{itemize}
+
+\section*{Prerequisites}
+
+\begin{enumerate}
+	\item Install Anaconda
+	\begin{itemize}
+		\item I use \textbf{Anaconda}, one of the most popular Python distributions.
+		\item Anaconda is easy to install and comes with a great package management system called \textit{conda}.
+		\item In class, I am going to use \textbf{Python 3.8.12}.
+		\item Follow this \href{https://www.anaconda.com/distribution/}{link} to install Anaconda. Make sure you choose the correct operating system.  
+	\end{itemize}
+	\item Working knowledge of Python
+	\begin{itemize}
+		\item Choose an IDE in which you can run python code (.py) and notebooks. I recommend using Jupyter Lab or PyCharm. You can install it using Anaconda or, for PyCharm, it can be downloaded for free \href{https://www.jetbrains.com/pycharm/download/#section=windows}{here}.
+		\item Student and faculty members license is for free, you only need to apply at \href{https://www.jetbrains.com/student/}{PyCharm license}. 
+	\end{itemize}
+    \item WRDS direct connection with Python
+    \begin{itemize}
+    	\item WRDS has built a Python module that allows direct download of datasets from WRDS services in Python. This is very convenient and we are going to use this tool in class.
+    	\item In order to use the direct download you need to setup your connection beforehand by following the instructions \href{https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-python/python-from-your-computer/}{here}.  
+    	\item The WRDS support is very responsive, so make sure to email them if you need help to setup your connection. 
+    \end{itemize}
+   \item Working knowledge of GIT
+	\begin{itemize}
+		\item All course material will be available in Bitbucket repository. Access \href{https://bitbucket.org/rkeerati/big-data-2022/src}{here}.
+		\item Make sure to setup a Bitbucket account \href{https://bitbucket.org/account/signup/}{here} and study the GIT basics \href{https://www.atlassian.com/git/tutorials/what-is-version-control}{here}.
+		\item Using GIT will change the way you collaborate in research projects, making it much easier to organize and keep track of changes made by you or your colleagues.
+	\end{itemize}
+	\item Optional: power-up your Jupyter Notebook.
+	\begin{itemize}
+		\item Notebooks are great to produce documents you intend to present.
+		\item We are going to use notebooks during class.
+		\item \href{https://towardsdatascience.com/bringing-the-best-out-of-jupyter-notebooks-for-data-science-f0871519ca29}{Here} you can find a description of very useful plugins for Jupyter Notebooks. I highly recommend that you install the suggested plugins.  
+	\end{itemize}	
+\end{enumerate}
+
+\section*{Homeworks}
+There will be \textbf{two} homeworks.
+\begin{enumerate}
+	\item Due Thursday, 03/24: Exploring CRSP and COMPUSTAT
+	\item Due Thursday, 03/31: Quantitative investing
+\end{enumerate}
+
+\section*{Lectures}
+
+\subsection*{Lecture I: CRSP and Compustat Basics}
+\begin{enumerate}
+	\item Introduction
+\begin{enumerate}
+		\item WRDS basics
+		\item How to download data into Python
+\end{enumerate}
+
+\item{CRSP}
+\begin{enumerate}
+	\item Securities File Monthly 
+	\item Securities File Daily 
+	\item Events Table
+	\item Stock Header Info
+\end{enumerate}
+
+\item Compustat
+\begin{enumerate}
+	\item Fundamentals Annual
+	\item Fundamentals Quarterly
+	\item Pension Annual
+	\item Names Table 
+\end{enumerate}
+\end{enumerate}
+
+\subsection*{Lecture II: Asset Pricing Factor Replication}
+
+\begin{enumerate}
+	\item CRSP and Compustat merge
+	\item An overview of Fama and French factor construction technology
+	\item Characteristics Construction: Fama and French (2015) + Momentum
+	\begin{itemize}
+		\item Size (CRSP)
+		\item Book to Market (Compustat)
+		\item Profitability (Compustat)
+		\item Investment (Compustat)
+		\item Momentum (CRSP)
+	\end{itemize}
+	\item Replicate Fama and French (2015) five factors and momentum factor.
+	\item[] \hspace{-15 pt} \underline{References:}
+	\begin{itemize}
+		\item \textbf{Fama, Eugene and Kenneth French, “Common Risk Factors in the Returns on Stocks and Bonds,”} 1993, \textit{Journal of Financial Economics}, 33, 3-56.
+		\item \textbf{Jegadeesh, Narasimhan and Sheridan Titman, “Returns to Buying Winners and Selling Losers: Implications for Stock Market Efficiency,”} 1993, \textit{Journal of Finance}, 48, 65-91.
+		\item \textbf{Fama, Eugene and Kenneth French, “A Five-Factor Asset Pricing Model,”} 2015, \textit{Journal of Financial Economics}, 116, 1-22.
+	\end{itemize}
+\end{enumerate}
+\subsection*{Lecture III: Quant-Investing}
+\begin{enumerate}
+	\item Performance evaluation: Alpha evaluation and Fama-MacBeth regressions
+	\item A word on back testing
+	\item A word on trading costs
+	\item Performance analyses
+	\begin{enumerate}
+		\item Value investing
+		\item Momentum
+		\item Characteristic efficient portfolios 
+	\end{enumerate}
+	\item[] \hspace{-15 pt} \underline{References:}
+	\begin{itemize}
+		\item \textbf{Harvey, Campbell, Yan Liu and Heqing Zhu, “ ... and the Cross-Section of Expected Returns”,} \textit{Review of Financial Studies}, 2016, 29, 5-68.
+		\item \textbf{McLean, David and Jeff Pontiff, “Does Academic Publication Destroy Stock Return Predictability?”} 2016, \textit{Journal of Finance}, 71, 5-32.
+		\item \textbf{Fama, Eugene and Kenneth French, “A Five-Factor Asset Pricing Model,”} 2015, \textit{Journal of Financial Economics}, 116, 1-22.
+		\item \textbf{Korajczyk, Robert and Ronnie Sadka, “Are Momentum Profits Robust to Trading Costs?,”} 2004, \textit{Journal of Finance}, 59(3), 1030-1082.
+		\item \textbf{Novy-Marx, Robert and Mihail Velikov, “A Taxonomy of Anomalies and Their Trading Costs,”} \textit{Review of Financial Studies}, 2017.
+		\item \textbf{Daniel, Kent and Tobias Moskowitz, “Momentum Crashes,”} 2016, \textit{Journal of Financial Economics}, 122(2), 221-247.
+		\item \textbf{Daniel, Kent, Lira Mota, Simon Rottke and Tano Santos, “The Cross-Section of Risk and Returns,”} 2020, \textit{The Review of Financial Studies,} 33(5), 927–1979.
+	\end{itemize}
+\end{enumerate}	
+
+\end{document}
+
+
+
